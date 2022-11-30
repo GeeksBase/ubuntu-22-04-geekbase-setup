@@ -39,7 +39,7 @@ echo "Entferne Ubuntu Advantage Tools, falls vorhanden..."
 apt-get purge --autoremove ubuntu-advantage-tools -y &> /dev/null
 
 # -------------------------------------------------------------------------------------------
-echo "Entferne Snap Pakete, falls vorhanden"
+echo "Entferne Snap Pakete, falls vorhanden..."
 # Deinstallieren von Snap Paketen, falls Sie existieren
 for deb in $(dpkg -l | egrep "^ii" | awk ' {print $2} ' | sort | grep snap | sed -z 's/\n/ /g')
 do
@@ -270,13 +270,15 @@ echo "Erstelle SSH Benutzer..."
 
 read -p "Bitte gib einen SSH Benutzernamen an: " "sudo_user"
 read -s -p "Bitte gib ein Passwort an: " "user_password"
+echo ""
 
 crypted_password=$(mkpasswd --method=SHA-512 --stdin $user_password)
 
 useradd -m -p "${crypted_password}" -G "sudo" -s "/bin/bash" $sudo_user &> /dev/null
 
 # -------------------------------------------------------------------------------------------
-echo "Installiere SSH Server, erstelle Konfiguration & state SSH Server neu..."
+echo ""
+echo "Installiere SSH Server, erstelle Konfiguration & starte SSH Server neu..."
 # OpenSSH installieren, Konfiguration erstellen und SSH neustarten
 
 apt install openssh-server &> /dev/null
@@ -702,7 +704,7 @@ echo -e ""
 echo -e "#############################################################################"
 echo -e ""
 echo -e "${GREEN}#####################################################"
-echo -e "## GeekBase Ubuntu 22.04 Setup abgeschlossen          ##"
+echo -e "## GeekBase Ubuntu 22.04 Setup abgeschlossen       ##"
 echo -e "#####################################################${NC}"
 echo -e ""
 echo -e "Vielen Dank für die Nutzung des GeekBase Ubuntu 22.04 Setups."
