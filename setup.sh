@@ -371,9 +371,7 @@ systemctl start unattended-upgrades -y &> /dev/null
 echo "Konfiguriere Log Rotation..."
 # Log Rotate konfigurieren
 
-apt install logrotate -y &> /dev/null
-
-sleep 1
+apt-get install logrotate -y &> /dev/null
 
 cat <<'EOF' > /etc/logrotate.d/alternatives
 /var/log/alternatives.log {
@@ -389,8 +387,6 @@ cat <<'EOF' > /etc/logrotate.d/alternatives
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/apport
 /var/log/apport.log {
        daily
@@ -403,8 +399,6 @@ cat <<'EOF' > /etc/logrotate.d/apport
            dateformat .%Y-%m-%d
 }
 EOF
-
-sleep 1
 
 cat <<'EOF' > /etc/logrotate.d/apt
 /var/log/apt/term.log {
@@ -428,8 +422,6 @@ cat <<'EOF' > /etc/logrotate.d/apt
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/bootlog
 /var/log/boot.log
 {
@@ -443,8 +435,6 @@ cat <<'EOF' > /etc/logrotate.d/bootlog
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/btmp
 # no packages own btmp -- we'll rotate it here
 /var/log/btmp {
@@ -456,8 +446,6 @@ cat <<'EOF' > /etc/logrotate.d/btmp
         dateformat .%Y-%m-%d
 }
 EOF
-
-sleep 1
 
 cat <<'EOF' > /etc/logrotate.d/dpkg
 /var/log/dpkg.log {
@@ -472,8 +460,6 @@ cat <<'EOF' > /etc/logrotate.d/dpkg
                 dateformat .%Y-%m-%d
 }
 EOF
-
-sleep 1
 
 cat <<'EOF' > /etc/logrotate.d/rsyslog
 /var/log/syslog
@@ -505,8 +491,6 @@ cat <<'EOF' > /etc/logrotate.d/rsyslog
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/ufw
 /var/log/ufw.log
 {
@@ -525,8 +509,6 @@ cat <<'EOF' > /etc/logrotate.d/ufw
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/unattended-upgrades
 /var/log/unattended-upgrades/unattended-upgrades.log
 /var/log/unattended-upgrades/unattended-upgrades-dpkg.log
@@ -542,8 +524,6 @@ cat <<'EOF' > /etc/logrotate.d/unattended-upgrades
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/wtmp
 # no packages own wtmp -- we'll rotate it here
 /var/log/wtmp {
@@ -556,8 +536,6 @@ cat <<'EOF' > /etc/logrotate.d/wtmp
         dateformat .%Y-%m-%d
 }
 EOF
-
-sleep 1
 
 cat <<'EOF' > /etc/logrotate.d/do-release-upgrade
 /var/log/dist-upgrade/*.log
@@ -573,8 +551,6 @@ cat <<'EOF' > /etc/logrotate.d/do-release-upgrade
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/landscape
 /var/log/landscape/*.log
  {
@@ -587,8 +563,6 @@ cat <<'EOF' > /etc/logrotate.d/landscape
         dateformat .%Y-%m-%d
 }
 EOF
-
-sleep 1
 
 cat <<'EOF' > /etc/logrotate.d/private
 /var/log/private/*.log
@@ -603,8 +577,6 @@ cat <<'EOF' > /etc/logrotate.d/private
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/cloud-init
 /var/log/cloud-init.log
  {
@@ -617,8 +589,6 @@ cat <<'EOF' > /etc/logrotate.d/cloud-init
         dateformat .%Y-%m-%d
 }
 EOF
-
-sleep 1
 
 cat <<'EOF' > /etc/logrotate.d/cloud-init
 /var/log/cloud-init-output.log
@@ -633,8 +603,6 @@ cat <<'EOF' > /etc/logrotate.d/cloud-init
 }
 EOF
 
-sleep 1
-
 cat <<'EOF' > /etc/logrotate.d/dmesg
 /var/log/dmesg
  {
@@ -648,12 +616,10 @@ cat <<'EOF' > /etc/logrotate.d/dmesg
 }
 EOF
 
-sleep 1
-
 systemctl restart logrotate.service &>/dev/null
 
 # -------------------------------------------------------------------------------------------
-echo "Installiere Fail2Ban und konfiguriere SSH Jail"
+echo "Installiere Fail2Ban und konfiguriere SSH Jail..."
 # Fail2Ban Grundinstallation mit SSH Jail
 
 apt-get install fail2ban -y &>/dev/null
